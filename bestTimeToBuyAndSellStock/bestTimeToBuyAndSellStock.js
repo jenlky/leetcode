@@ -10,17 +10,16 @@
  * @return {number}
  */
 const maxProfit = function(prices) {
-  let profit;
+  let minPrice = Number.MAX_VALUE;
   let maxProfit = 0;
 
-  prices.forEach((buy, index) => {
-    let rest = prices.slice(index + 1);
-    let sell = Math.max(...rest);
-
-    sell > buy ? (profit = sell - buy) : null;
-    profit > maxProfit ? (maxProfit = profit) : null;
-  });
-
+  for (let selling of prices) {
+    if (selling < minPrice) {
+      minPrice = selling;
+    } else if (selling - minPrice > maxProfit) {
+      maxProfit = selling - minPrice;
+    }
+  }
   return maxProfit;
 };
 // @lc code=end
